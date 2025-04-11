@@ -1,14 +1,11 @@
 <!DOCTYPE html><html lang="es">
 <head>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3909732715606632"
-     crossorigin="anonymous"></script>
-  <meta name="google-adsense-account" content="ca-pub-3909732715606632">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FIFA 24 - Generador de Equipos</title>
+  <title>FIFA 2024 - EQUIPOS ALEATORIOS</title>
   <style>
     :root {
-      --primary: #00ffc8;
+      --primary: #ffd700; /* dorado */
       --secondary: #11131a;
       --text: #ffffff;
       --card-bg: #1f2230;
@@ -26,10 +23,22 @@
       align-items: center;
       padding: 20px;
     }
-    h1 {
-      font-size: 2rem;
+    .title-box {
+      border: 2px solid var(--primary);
+      padding: 20px;
+      text-align: center;
       margin-bottom: 20px;
+      box-shadow: 0 0 20px white;
+    }
+    .title-box h1 {
+      font-size: 2rem;
       color: var(--primary);
+      margin: 0;
+    }
+    .creator {
+      font-size: 0.9rem;
+      color: #aaa;
+      margin-top: 5px;
     }
     .container {
       display: flex;
@@ -47,7 +56,7 @@
       width: 100%;
       max-width: 350px;
       text-align: center;
-      box-shadow: 0 4px 20px rgba(0, 255, 200, 0.1);
+      box-shadow: 0 4px 20px rgba(255, 215, 0, 0.2);
     }
     .team img {
       width: 80px;
@@ -63,23 +72,20 @@
       font-weight: bold;
     }
     .vs {
-      font-size: 2rem;
+      font-size: 1.2rem;
       color: var(--primary);
       align-self: center;
-    }
-    button {
-      margin-top: 30px;
-      padding: 12px 25px;
-      font-size: 1rem;
-      background-color: var(--primary);
-      color: #000;
-      border: none;
-      border-radius: 12px;
       cursor: pointer;
-      transition: background 0.3s;
     }
-    button:hover {
-      background-color: #00cfa3;
+    .vs::after {
+      content: "\2192 Generar Equipos";
+      display: block;
+      margin-top: 10px;
+      font-size: 1rem;
+      color: white;
+    }
+    .vs:hover {
+      color: white;
     }
     @media (max-width: 768px) {
       .container {
@@ -89,120 +95,47 @@
   </style>
 </head>
 <body>
-  <h1>FIFA 24 - Partido Aleatorio</h1>
-  <div class="container">
+  <div class="title-box">
+    <h1>FIFA 2024 - EQUIPOS ALEATORIOS</h1>
+    <div class="creator">Creado por Maximiliano Gago</div>
+  </div>  <div class="container">
     <div class="team" id="team1">
       <img id="team1-logo" src="" alt="Logo" />
       <h2 id="team1-name">Equipo 1</h2>
       <p id="team1-league">Liga</p>
       <div class="stats" id="team1-stats"></div>
     </div>
-    <div class="vs">VS</div>
+    <div class="vs" onclick="generateMatch()">VS</div>
     <div class="team" id="team2">
       <img id="team2-logo" src="" alt="Logo" />
       <h2 id="team2-name">Equipo 2</h2>
       <p id="team2-league">Liga</p>
       <div class="stats" id="team2-stats"></div>
     </div>
-  </div>
-  <button onclick="generateMatch()">Generar Equipos</button>  <script>
+  </div>  <script>
     const teams = [
-      {
-        name: "Real Madrid",
-        league: "LaLiga",
-        logo: "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg",
-        att: 87,
-        mid: 85,
-        def: 84
-      },
-      {
-        name: "FC Barcelona",
-        league: "LaLiga",
-        logo: "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg",
-        att: 86,
-        mid: 84,
-        def: 82
-      },
-      {
-        name: "Manchester City",
-        league: "Premier League",
-        logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg",
-        att: 88,
-        mid: 89,
-        def: 85
-      },
-      {
-        name: "Liverpool",
-        league: "Premier League",
-        logo: "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg",
-        att: 86,
-        mid: 83,
-        def: 80
-      },
-      {
-        name: "Bayern Munich",
-        league: "Bundesliga",
-        logo: "https://upload.wikimedia.org/wikipedia/en/1/1f/FC_Bayern_München_logo_%282017%29.svg",
-        att: 88,
-        mid: 84,
-        def: 83
-      },
-      {
-        name: "Borussia Dortmund",
-        league: "Bundesliga",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg",
-        att: 84,
-        mid: 81,
-        def: 79
-      },
-      {
-        name: "Juventus",
-        league: "Serie A",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/1/15/Juventus_FC_2017_logo.svg",
-        att: 83,
-        mid: 82,
-        def: 84
-      },
-      {
-        name: "Inter de Milán",
-        league: "Serie A",
-        logo: "https://upload.wikimedia.org/wikipedia/en/0/0b/Inter_Milan_2021_logo.svg",
-        att: 85,
-        mid: 83,
-        def: 82
-      },
-      {
-        name: "PSG",
-        league: "Ligue 1",
-        logo: "https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg",
-        att: 89,
-        mid: 85,
-        def: 80
-      },
-      {
-        name: "Atlético de Madrid",
-        league: "LaLiga",
-        logo: "https://upload.wikimedia.org/wikipedia/en/f/f4/Atletico_Madrid_2017_logo.svg",
-        att: 83,
-        mid: 82,
-        def: 85
-      },
-      {
-        name: "Arsenal",
-        league: "Premier League",
-        logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg",
-        att: 84,
-        mid: 83,
-        def: 83
-      },
-      {
-        name: "AC Milan",
-        league: "Serie A",
-        logo: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg",
-        att: 83,
-        mid: 80,
-        def: 81
-      }
+      // los 12 equipos originales
+      { name: "Real Madrid", league: "LaLiga", logo: "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg", att: 87, mid: 85, def: 84 },
+      { name: "FC Barcelona", league: "LaLiga", logo: "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg", att: 86, mid: 84, def: 82 },
+      { name: "Manchester City", league: "Premier League", logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg", att: 88, mid: 89, def: 85 },
+      { name: "Liverpool", league: "Premier League", logo: "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg", att: 86, mid: 83, def: 80 },
+      { name: "Bayern Munich", league: "Bundesliga", logo: "https://upload.wikimedia.org/wikipedia/en/1/1f/FC_Bayern_M%C3%BCnchen_logo_%282017%29.svg", att: 88, mid: 84, def: 83 },
+      { name: "Borussia Dortmund", league: "Bundesliga", logo: "https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg", att: 84, mid: 81, def: 79 },
+      { name: "Juventus", league: "Serie A", logo: "https://upload.wikimedia.org/wikipedia/commons/1/15/Juventus_FC_2017_logo.svg", att: 83, mid: 82, def: 84 },
+      { name: "Inter de Milán", league: "Serie A", logo: "https://upload.wikimedia.org/wikipedia/en/0/0b/Inter_Milan_2021_logo.svg", att: 85, mid: 83, def: 82 },
+      { name: "PSG", league: "Ligue 1", logo: "https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg", att: 89, mid: 85, def: 80 },
+      { name: "Atlético de Madrid", league: "LaLiga", logo: "https://upload.wikimedia.org/wikipedia/en/f/f4/Atletico_Madrid_2017_logo.svg", att: 83, mid: 82, def: 85 },
+      { name: "Arsenal", league: "Premier League", logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg", att: 84, mid: 83, def: 83 },
+      { name: "AC Milan", league: "Serie A", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg", att: 83, mid: 80, def: 81 },
+      // 20 equipos adicionales ficticios
+      ...Array.from({ length: 20 }, (_, i) => ({
+        name: `Equipo Fantasma ${i + 1}`,
+        league: "Liga Fantasma",
+        logo: "https://via.placeholder.com/80x80.png?text=Logo",
+        att: Math.floor(Math.random() * 20) + 75,
+        mid: Math.floor(Math.random() * 20) + 75,
+        def: Math.floor(Math.random() * 20) + 75,
+      }))
     ];
 
     function getRandomTeam(excludeTeam) {
