@@ -25,18 +25,19 @@
     }
     .title-box {
       border: 2px solid var(--primary);
-      padding: 20px;
+      padding: 10px 20px;
       text-align: center;
       margin-bottom: 20px;
-      box-shadow: 0 0 20px white;
+      box-shadow: 0 0 12px white;
+      max-width: 300px;
     }
     .title-box h1 {
-      font-size: 2rem;
+      font-size: 1.3rem;
       color: var(--primary);
       margin: 0;
     }
     .creator {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
       color: #aaa;
       margin-top: 5px;
     }
@@ -73,19 +74,21 @@
     }
     .vs {
       font-size: 1.2rem;
-      color: var(--primary);
+      color: white;
       align-self: center;
       cursor: pointer;
-    }
-    .vs::after {
-      content: "\2192 Generar Equipos";
-      display: block;
-      margin-top: 10px;
-      font-size: 1rem;
-      color: white;
+      width: 100px;
+      height: 100px;
+      background-color: black;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 4px solid var(--primary);
+      box-shadow: 0 0 12px var(--primary);
     }
     .vs:hover {
-      color: white;
+      box-shadow: 0 0 20px white;
     }
     @media (max-width: 768px) {
       .container {
@@ -114,7 +117,6 @@
     </div>
   </div>  <script>
     const teams = [
-      // los 12 equipos originales
       { name: "Real Madrid", league: "LaLiga", logo: "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg", att: 87, mid: 85, def: 84 },
       { name: "FC Barcelona", league: "LaLiga", logo: "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg", att: 86, mid: 84, def: 82 },
       { name: "Manchester City", league: "Premier League", logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg", att: 88, mid: 89, def: 85 },
@@ -127,15 +129,14 @@
       { name: "Atlético de Madrid", league: "LaLiga", logo: "https://upload.wikimedia.org/wikipedia/en/f/f4/Atletico_Madrid_2017_logo.svg", att: 83, mid: 82, def: 85 },
       { name: "Arsenal", league: "Premier League", logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg", att: 84, mid: 83, def: 83 },
       { name: "AC Milan", league: "Serie A", logo: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg", att: 83, mid: 80, def: 81 },
-      // 20 equipos adicionales ficticios
-      ...Array.from({ length: 20 }, (_, i) => ({
-        name: `Equipo Fantasma ${i + 1}`,
-        league: "Liga Fantasma",
-        logo: "https://via.placeholder.com/80x80.png?text=Logo",
-        att: Math.floor(Math.random() * 20) + 75,
-        mid: Math.floor(Math.random() * 20) + 75,
-        def: Math.floor(Math.random() * 20) + 75,
-      }))
+      { name: "Tottenham", league: "Premier League", logo: "https://upload.wikimedia.org/wikipedia/en/b/b4/Tottenham_Hotspur.svg", att: 83, mid: 82, def: 81 },
+      { name: "Napoli", league: "Serie A", logo: "https://upload.wikimedia.org/wikipedia/commons/2/2d/SSC_Napoli.svg", att: 85, mid: 83, def: 82 },
+      { name: "RB Leipzig", league: "Bundesliga", logo: "https://upload.wikimedia.org/wikipedia/en/0/04/RB_Leipzig_2014_logo.svg", att: 82, mid: 81, def: 80 },
+      { name: "Marseille", league: "Ligue 1", logo: "https://upload.wikimedia.org/wikipedia/en/2/2e/Olympique_de_Marseille_logo.svg", att: 81, mid: 80, def: 79 },
+      { name: "AS Roma", league: "Serie A", logo: "https://upload.wikimedia.org/wikipedia/en/f/f7/AS_Roma_logo_%282017%29.svg", att: 82, mid: 80, def: 81 },
+      { name: "Lyon", league: "Ligue 1", logo: "https://upload.wikimedia.org/wikipedia/en/c/c6/Olympique_Lyonnais.svg", att: 80, mid: 79, def: 78 },
+      { name: "Leverkusen", league: "Bundesliga", logo: "https://upload.wikimedia.org/wikipedia/en/5/59/Bayer_04_Leverkusen_logo.svg", att: 84, mid: 82, def: 80 },
+      { name: "Chelsea", league: "Premier League", logo: "https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg", att: 82, mid: 81, def: 80 }
     ];
 
     function getRandomTeam(excludeTeam) {
