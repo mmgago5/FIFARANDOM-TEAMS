@@ -1,0 +1,230 @@
+<!DOCTYPE html><html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FIFA 24 - Generador de Equipos</title>
+  <style>
+    :root {
+      --primary: #00ffc8;
+      --secondary: #11131a;
+      --text: #ffffff;
+      --card-bg: #1f2230;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--secondary);
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: var(--primary);
+    }
+    .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 30px;
+      width: 100%;
+      max-width: 900px;
+    }
+    .team {
+      background-color: var(--card-bg);
+      padding: 20px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 350px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0, 255, 200, 0.1);
+    }
+    .team img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+    .stats {
+      margin-top: 10px;
+      font-size: 0.95rem;
+    }
+    .stats span {
+      display: inline-block;
+      margin: 0 5px;
+      font-weight: bold;
+    }
+    .vs {
+      font-size: 2rem;
+      color: var(--primary);
+      align-self: center;
+    }
+    button {
+      margin-top: 30px;
+      padding: 12px 25px;
+      font-size: 1rem;
+      background-color: var(--primary);
+      color: #000;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background-color: #00cfa3;
+    }
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>FIFA 24 - Partido Aleatorio</h1>
+  <div class="container">
+    <div class="team" id="team1">
+      <img id="team1-logo" src="" alt="Logo" />
+      <h2 id="team1-name">Equipo 1</h2>
+      <p id="team1-league">Liga</p>
+      <div class="stats" id="team1-stats"></div>
+    </div>
+    <div class="vs">VS</div>
+    <div class="team" id="team2">
+      <img id="team2-logo" src="" alt="Logo" />
+      <h2 id="team2-name">Equipo 2</h2>
+      <p id="team2-league">Liga</p>
+      <div class="stats" id="team2-stats"></div>
+    </div>
+  </div>
+  <button onclick="generateMatch()">Generar Equipos</button>  <script>
+    const teams = [
+      {
+        name: "Real Madrid",
+        league: "LaLiga",
+        logo: "https://upload.wikimedia.org/wikipedia/en/5/56/Real_Madrid_CF.svg",
+        att: 87,
+        mid: 85,
+        def: 84
+      },
+      {
+        name: "FC Barcelona",
+        league: "LaLiga",
+        logo: "https://upload.wikimedia.org/wikipedia/en/4/47/FC_Barcelona_%28crest%29.svg",
+        att: 86,
+        mid: 84,
+        def: 82
+      },
+      {
+        name: "Manchester City",
+        league: "Premier League",
+        logo: "https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg",
+        att: 88,
+        mid: 89,
+        def: 85
+      },
+      {
+        name: "Liverpool",
+        league: "Premier League",
+        logo: "https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg",
+        att: 86,
+        mid: 83,
+        def: 80
+      },
+      {
+        name: "Bayern Munich",
+        league: "Bundesliga",
+        logo: "https://upload.wikimedia.org/wikipedia/en/1/1f/FC_Bayern_München_logo_%282017%29.svg",
+        att: 88,
+        mid: 84,
+        def: 83
+      },
+      {
+        name: "Borussia Dortmund",
+        league: "Bundesliga",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/6/67/Borussia_Dortmund_logo.svg",
+        att: 84,
+        mid: 81,
+        def: 79
+      },
+      {
+        name: "Juventus",
+        league: "Serie A",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/1/15/Juventus_FC_2017_logo.svg",
+        att: 83,
+        mid: 82,
+        def: 84
+      },
+      {
+        name: "Inter de Milán",
+        league: "Serie A",
+        logo: "https://upload.wikimedia.org/wikipedia/en/0/0b/Inter_Milan_2021_logo.svg",
+        att: 85,
+        mid: 83,
+        def: 82
+      },
+      {
+        name: "PSG",
+        league: "Ligue 1",
+        logo: "https://upload.wikimedia.org/wikipedia/en/a/a7/Paris_Saint-Germain_F.C..svg",
+        att: 89,
+        mid: 85,
+        def: 80
+      },
+      {
+        name: "Atlético de Madrid",
+        league: "LaLiga",
+        logo: "https://upload.wikimedia.org/wikipedia/en/f/f4/Atletico_Madrid_2017_logo.svg",
+        att: 83,
+        mid: 82,
+        def: 85
+      },
+      {
+        name: "Arsenal",
+        league: "Premier League",
+        logo: "https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg",
+        att: 84,
+        mid: 83,
+        def: 83
+      },
+      {
+        name: "AC Milan",
+        league: "Serie A",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/d/d0/Logo_of_AC_Milan.svg",
+        att: 83,
+        mid: 80,
+        def: 81
+      }
+    ];
+
+    function getRandomTeam(excludeTeam) {
+      let team;
+      do {
+        team = teams[Math.floor(Math.random() * teams.length)];
+      } while (excludeTeam && team.name === excludeTeam.name);
+      return team;
+    }
+
+    function generateMatch() {
+      const team1 = getRandomTeam();
+      const team2 = getRandomTeam(team1);
+
+      document.getElementById("team1-name").textContent = team1.name;
+      document.getElementById("team1-logo").src = team1.logo;
+      document.getElementById("team1-league").textContent = team1.league;
+      document.getElementById("team1-stats").innerHTML = `DEL: <span>${team1.att}</span> | MED: <span>${team1.mid}</span> | DEF: <span>${team1.def}</span>`;
+
+      document.getElementById("team2-name").textContent = team2.name;
+      document.getElementById("team2-logo").src = team2.logo;
+      document.getElementById("team2-league").textContent = team2.league;
+      document.getElementById("team2-stats").innerHTML = `DEL: <span>${team2.att}</span> | MED: <span>${team2.mid}</span> | DEF: <span>${team2.def}</span>`;
+    }
+
+    generateMatch();
+  </script></body>
+</html>
